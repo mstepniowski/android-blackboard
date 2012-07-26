@@ -49,6 +49,7 @@ public class BoardView extends View {
     @Override
     protected void onDraw (Canvas canvas) {
     	super.onDraw(canvas);
+    	canvas.drawColor(0xFFFFFFFF);
     	if (paths != null) {
     		for (DrawingPath drawingPath : paths) {
     			canvas.drawPath(drawingPath.path, drawingPath.paint);
@@ -57,6 +58,11 @@ public class BoardView extends View {
     			canvas.drawPath(currentDrawingPath.path, currentDrawingPath.paint);
     		}
     	}
+    }
+    
+    public void clear () {
+		paths = new ArrayList<DrawingPath>();
+		invalidate();
     }
     
     @Override

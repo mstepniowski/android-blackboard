@@ -40,29 +40,30 @@ public class DrawingBoard extends Activity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	if (item.getItemId() != R.id.menu_share) {
-    		return false;
-    	}
-    	
-    	try {
-    		File file = new File(getExternalCacheDir(), "shared_image.png");
-    		FileOutputStream fos = new FileOutputStream(file);
+        BoardView board = (BoardView) findViewById(R.id.boardView1);
 
-            BoardView board = (BoardView) findViewById(R.id.boardView1);
-            Bitmap bitmap = Bitmap.createBitmap(board.getMeasuredWidth(), board.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            board.draw(canvas);
-            bitmap.compress(CompressFormat.PNG, 100, fos);
-    		fos.close();
-    		
-            Intent shareIntent = new Intent(Intent.ACTION_SEND);
-            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            shareIntent.setType("image/png");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-            startActivity(Intent.createChooser(shareIntent, "Share Image"));
-    	} catch (IOException e) {
-    		Log.wtf("DrawingBoard", e);
-    	}
+        if (item.getItemId() == R.id.menu_share) {
+	    	try {
+	    		File file = new File(getExternalCacheDir(), "shared_image.png");
+	    		FileOutputStream fos = new FileOutputStream(file);
+	
+	            Bitmap bitmap = Bitmap.createBitmap(board.getMeasuredWidth(), board.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+	            Canvas canvas = new Canvas(bitmap);
+	            board.draw(canvas);
+	            bitmap.compress(CompressFormat.PNG, 100, fos);
+	    		fos.close();
+	    		
+	            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+	            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+	            shareIntent.setType("image/png");
+	            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+	            startActivity(Intent.createChooser(shareIntent, "Share Image"));
+	    	} catch (IOException e) {
+	    		Log.wtf("DrawingBoard", e);
+	    	}
+        } else if (item.getItemId() == R.id.menu_clear) {
+        	board.clear();
+        }
     	return true;
     }
 }

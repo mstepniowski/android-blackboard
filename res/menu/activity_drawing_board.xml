@@ -3,4 +3,8 @@
           android:icon="@drawable/ic_action_share"
           android:title="@string/share"
           android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_clear"
+          android:icon="@drawable/ic_action_cancel"
+          android:title="@string/clear"
+          android:showAsAction="ifRoom|withText" />
 </menu>
