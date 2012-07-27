@@ -14,6 +14,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ShareActionProvider;
 
 
@@ -38,6 +39,18 @@ public class DrawingBoard extends Activity {
         return true;
     }
     
+    public void onClick(View view){
+        BoardView board = (BoardView) findViewById(R.id.boardView1);
+        switch (view.getId()){
+        	case R.id.yellow_color_button: board.setPaintColor(0xFFF6F792); break;
+        	case R.id.gray_color_button: board.setPaintColor(0xFF333745); break;
+        	case R.id.blue_color_button: board.setPaintColor(0xFF77C4D3); break;
+        	case R.id.white_color_button: board.setPaintColor(0xFFFFFFFF); break;
+        	case R.id.magenta_color_button: board.setPaintColor(0xFFEA2E49); break;
+        	case R.id.black_color_button: board.setPaintColor(0xFF000000); break;
+        }
+    }
+        
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         BoardView board = (BoardView) findViewById(R.id.boardView1);

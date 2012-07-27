@@ -28,7 +28,7 @@ public class BoardView extends View {
 		paths = new ArrayList<DrawingPath>();
 		setCurrentPaint();
 	}
-
+	
 	public BoardView(Context context) {
 		super(context);
 		
@@ -37,9 +37,13 @@ public class BoardView extends View {
 	}
 	
 	private void setCurrentPaint() {
+		setPaintColor(0xFF000000);
+	}
+
+	public void setPaintColor(int color) {
 		currentPaint = new Paint();
 		currentPaint.setDither(true);
-		currentPaint.setColor(0xFF000000);
+		currentPaint.setColor(color);
 		currentPaint.setStyle(Paint.Style.STROKE);
 		currentPaint.setStrokeJoin(Paint.Join.ROUND);
 		currentPaint.setStrokeCap(Paint.Cap.ROUND);
