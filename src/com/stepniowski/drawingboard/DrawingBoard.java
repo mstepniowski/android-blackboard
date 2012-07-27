@@ -7,6 +7,8 @@ import java.io.IOException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -53,7 +55,7 @@ public class DrawingBoard extends Activity {
         
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        BoardView board = (BoardView) findViewById(R.id.boardView1);
+        final BoardView board = (BoardView) findViewById(R.id.boardView1);
 
         if (item.getItemId() == R.id.menu_share) {
 	    	try {
@@ -75,7 +77,24 @@ public class DrawingBoard extends Activity {
 	    		Log.wtf("DrawingBoard", e);
 	    	}
         } else if (item.getItemId() == R.id.menu_clear) {
-        	board.clear();
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Do you want to clear the board and lose this amazing picture?")
+					.setCancelable(false)
+					.setPositiveButton("Just clear it!",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									board.clear();
+								}
+							})
+					.setNegativeButton("No, save me please",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.cancel();
+								}
+							});
+        	builder.create().show();
         }
     	return true;
     }
